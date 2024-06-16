@@ -2,8 +2,74 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    List<Object> menuItems = new List<Object>();
+
+
+    menuItems.Add(new
+    {
+        text = "General",
+        separator = true,
+    }
+        );
+
+    menuItems.Add(new
+    {
+        text = "Dashboard",
+    url = "/",
+    iconCss="fa-solid fa-box"
+    }
+    );
+
+    menuItems.Add(new
+    {
+        text = "Kategorije",
+        url = "/Kategorija",
+        iconCss = "fa-solid fa-folder-closed"
+    }
+        );
+
+    menuItems.Add(new
+    {
+        text = "Transakcije",
+        url = "/Transakcija",
+        iconCss = "fa-solid fa-arrow-right-arrow-left"
+    }
+    );
+
+    menuItems.Add(new
+    {
+        text = "Extras",
+        separator = true,
+    }
+    );
+
+    menuItems.Add(new
+    {
+        text = "Report",
+        url = "#",
+        iconCss = "fa-solid fa-chart-simple"
+    }
+        );
+
+    menuItems.Add(new
+    {
+        text = "Podesavanja",
+        url = "#",
+        iconCss = "fa-solid fa-gear"
+    }
+    );
 }
 
 <ejs-sidebar id="sidebar" width="290px">
+    <e-content-template>
+        <div class="profile-wraper">
+            <img class="profile" src="~/profile.jpg" />
+            <div class="titles d-flex flex-column ps-3">
+                <h6 class="text-muted">Asistent za ustedu novca</h6>
+                <span calss="text-muted">Filip Milic</span>
+            </div>
+        </div>
 
+        <ejs-menu id="menu" items="menuItems" orientation="Vertical"></ejs-menu>
+    </e-content-template>
     </ejs-sidebar>

@@ -67,14 +67,21 @@ namespace AsistentZaUsteduNovca.Controllers
 
             //Spline Chart - Troskovi i Primanja
             //Primanja
-            List<SplineChartData> IncomeSummary = SelectedTransaction .Where(i =>i.Category.Tip =="Prihod") .GroupBy(j=>j.Datum).Select(k=>new SplineChartData()
+            List<SplineChartData> IncomeSummary = SelectedTransaction
+                .Where(i =>i.Category.Tip =="Prihod") 
+                .GroupBy(j=>j.Datum)
+                .Select(k=>new SplineChartData()
             {
-                day = k.First().Datum.ToString("dd-MM"), income = k.Sum(l=>l.Iznos)
+                day = k.First().Datum.ToString("dd-MM"),
+                 income = k.Sum(l=>l.Iznos)
             })
                 .ToList();
 
             //Troskovi
-            List<SplineChartData> ExpenseSummary = SelectedTransaction.Where(i => i.Category.Tip == "Troskovi").GroupBy(j => j.Datum).Select(k => new SplineChartData()
+            List<SplineChartData> ExpenseSummary = SelectedTransaction
+                .Where(i => i.Category.Tip == "Troskovi")
+                .GroupBy(j => j.Datum)
+                .Select(k => new SplineChartData()
             {
                 day = k.First().Datum.ToString("dd-MM"),
                 expense = k.Sum(l => l.Iznos)
@@ -99,6 +106,15 @@ namespace AsistentZaUsteduNovca.Controllers
                                           income = income == null ? 0 : income.income,
                                           expense = expense == null ? 0 : expense.expense
                                       };
+
+
+            ViewBag.RecentTransaction = await _context.Transactions
+                .Include(i => i.Category)
+                .OrderByDescending(j => j.Datum)
+                .Take(5)
+                .ToListAsync();
+
+
 
             return View();
                 
