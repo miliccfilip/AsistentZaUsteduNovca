@@ -48,6 +48,8 @@ namespace AsistentZaUsteduNovca.Controllers
             //Balance
             int Balance = TotalIncome - TotalExpense;
             ViewBag.Balance = Balance.ToString("C0");
+            string formattedBalance = Balance < 0 ? $"-{(-Balance).ToString("C0")}" : Balance.ToString("C0");
+            ViewBag.Balance = formattedBalance;
 
            
 
@@ -79,7 +81,7 @@ namespace AsistentZaUsteduNovca.Controllers
 
             //Troskovi
             List<SplineChartData> ExpenseSummary = SelectedTransaction
-                .Where(i => i.Category.Tip == "Troskovi")
+                .Where(i => i.Category.Tip == "Trosak")
                 .GroupBy(j => j.Datum)
                 .Select(k => new SplineChartData()
             {
